@@ -46,12 +46,12 @@ const nKey = (y,m,d) => `${y}-${m}-${d}`;
 
 export default function WallCalendar() {
   const today = new Date();
-  // const [vy, setVy]       = useState(today.getFullYear());
-  // const [vm, setVm]       = useState(today.getMonth());
+  const [vy, setVy]       = useState(today.getFullYear());
+  const [vm, setVm]       = useState(today.getMonth());
   const [flipDir, setFlipDir]   = useState(null);   // "next" | "prev" | null
   const [flipStage, setFlipStage] = useState(null);  // "exit" | "enter" | null
-  const displayVm = today.getMonth();
-  const displayVy = today.getFullYear();
+  const [displayVm, setDisplayVm] = useState(today.getMonth());
+  const [displayVy, setDisplayVy] = useState(today.getFullYear());
 
   const [startD, setStartD] = useState(null);
   const [endD, setEndD]     = useState(null);
@@ -67,7 +67,7 @@ export default function WallCalendar() {
   const inputRef = useRef(null);
   const T = THEMES[displayVm];
   const grad = `linear-gradient(155deg,${T.bg[0]} 0%,${T.bg[1]} 55%,${T.bg[2]} 100%)`;
-
+  console.log(vm)
   useEffect(() => { inputRef.current?.focus(); }, [noteText]);
 
   useEffect(() => {
@@ -89,7 +89,15 @@ export default function WallCalendar() {
     setFlipStage("exit");
 
     setTimeout(() => {
-      
+      setVm(prev => {
+        let nm = prev + dir, ny = vy;
+        if (nm < 0)  { nm = 11; ny = vy - 1; }
+        if (nm > 11) { nm = 0;  ny = vy + 1; }
+        setVy(ny);
+        setDisplayVm(nm);
+        setDisplayVy(ny);
+        return nm;
+      });
       setFlipStage("enter");
       setTimeout(() => { setFlipStage(null); setFlipDir(null); }, 350);
     }, 350);
@@ -358,6 +366,7 @@ export default function WallCalendar() {
     </div>
   );
 
+  /* ──── WALL SHADOW (decorative) ──── */
   
 
   /* ─────────────────────────── MOBILE LAYOUT ─────────────────────────── */
