@@ -136,17 +136,8 @@ export default function WallCalendar() {
 
   /* ──── SUB-RENDERS ──── */
 
-  const Rings = ({count=4,gap=52}) => (
-    <div style={{display:"flex",gap,justifyContent:"center",padding:"0 40px"}}>
-      {Array.from({length:count}).map((_,i)=>(
-        <div key={i} style={{width:20,height:28,borderRadius:"50% 50% 38% 38%",
-          background:"linear-gradient(to bottom,#d4c4a8,#b8a88a)",
-          border:"2px solid #a09070",
-          boxShadow:"0 2px 6px rgba(0,0,0,0.22),inset 0 -2px 4px rgba(0,0,0,0.15)"}} />
-      ))}
-    </div>
-  );
-
+  
+ 
   const MonthStrip = () => (
     <div style={{display:"flex",gap:2,padding:"0.45rem 1rem",overflowX:"auto",
       borderBottom:"1px solid #e8dece",scrollbarWidth:"none"}}>
