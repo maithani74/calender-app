@@ -46,12 +46,12 @@ const nKey = (y,m,d) => `${y}-${m}-${d}`;
 
 export default function WallCalendar() {
   const today = new Date();
-  const [vy, setVy]       = useState(today.getFullYear());
-  const [vm, setVm]       = useState(today.getMonth());
+  // const [vy, setVy]       = useState(today.getFullYear());
+  // const [vm, setVm]       = useState(today.getMonth());
   const [flipDir, setFlipDir]   = useState(null);   // "next" | "prev" | null
   const [flipStage, setFlipStage] = useState(null);  // "exit" | "enter" | null
-  const [displayVm, setDisplayVm] = useState(today.getMonth());
-  const [displayVy, setDisplayVy] = useState(today.getFullYear());
+  const displayVm = today.getMonth();
+  const displayVy = today.getFullYear();
 
   const [startD, setStartD] = useState(null);
   const [endD, setEndD]     = useState(null);
@@ -89,15 +89,7 @@ export default function WallCalendar() {
     setFlipStage("exit");
 
     setTimeout(() => {
-      setVm(prev => {
-        let nm = prev + dir, ny = vy;
-        if (nm < 0)  { nm = 11; ny = vy - 1; }
-        if (nm > 11) { nm = 0;  ny = vy + 1; }
-        setVy(ny);
-        setDisplayVm(nm);
-        setDisplayVy(ny);
-        return nm;
-      });
+      
       setFlipStage("enter");
       setTimeout(() => { setFlipStage(null); setFlipDir(null); }, 350);
     }, 350);
@@ -366,16 +358,7 @@ export default function WallCalendar() {
     </div>
   );
 
-  /* ──── WALL SHADOW (decorative) ──── */
-  const WallDecor = () => (
-    <div style={{
-      position:"absolute", top:0, left:"50%", transform:"translateX(-50%)",
-      width:4, height:16, background:"#8a7055",
-      borderRadius:"0 0 2px 2px",
-      boxShadow:"0 2px 8px rgba(0,0,0,0.5)",
-      zIndex:50,
-    }}/>
-  );
+  
 
   /* ─────────────────────────── MOBILE LAYOUT ─────────────────────────── */
   if (mobile) return (
